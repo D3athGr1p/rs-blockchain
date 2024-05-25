@@ -1,9 +1,6 @@
 use sha2::{Digest, Sha256};
 
-use crate::{
-    block::{self, Block},
-    transaction::Transaction,
-};
+use crate::{block::Block, transaction::Transaction};
 use std::time::{SystemTime, UNIX_EPOCH};
 
 #[derive(Debug)]
@@ -82,11 +79,6 @@ impl Blockchain {
         let mut hasher = Sha256::new();
         hasher.update(block_string);
         let guess_hash = format!("{:x}", hasher.finalize());
-        if guess_hash.starts_with(&"0".repeat(difficulty as usize)) {
-            println!("block {:?}", block);
-            true
-        } else {
-            false
-        }
+        guess_hash.starts_with(&"0".repeat(difficulty as usize))
     }
 }
